@@ -11,18 +11,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SpecificUser extends AppCompatActivity {
     private static final String TAG = "SpecificUser Activity";
-    private TextView txtFullName,txtPhone,txtEmail,txtOrigin;
-    private String mFullName,mPhone,mEmail,mOrigin;
+    private TextView txtFirstName,txtPhone,txtEmail,txtOrigin,txtLastName;
+    private String mFirstName,mPhone,mEmail,mOrigin,mLastName;
     private Users user;
     public static DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
@@ -32,20 +29,27 @@ public class SpecificUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_user);
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("user_details");
+
         Intent intent = getIntent();
 
-        txtFullName = findViewById(R.id.txt_name);
+        txtFirstName = findViewById(R.id.txt_name);
+        txtLastName = findViewById(R.id.txt_last_name);
         txtPhone = findViewById(R.id.txt_phone);
         txtEmail = findViewById(R.id.txt_email);
         txtOrigin = findViewById(R.id.txt_state);
 
         user = (Users) intent.getSerializableExtra("users");
-        mFullName = user.getmFirstName() + " " + user.getmLastName();
+        mFirstName = user.getmFirstName();
+        mLastName = user.getmLastName();
         mPhone = user.getmPhoneNumber();
         mEmail = user.getmEmail();
         mOrigin = user.getmStateOfOrigin();
 
-        txtFullName.setText(mFullName);
+        txtFirstName.setText(mFirstName);
+        txtLastName.setText(user.getmLastName());
         txtPhone.setText(mPhone);
         txtOrigin.setText(mOrigin);
         txtEmail.setText(mEmail);
@@ -61,14 +65,14 @@ public class SpecificUser extends AppCompatActivity {
             case R.id.delete_menu_item:
                 deleteUser();
                 return true;
+            case R.id.save_new_value:
+                updateRecord();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     private void deleteUser() {
         if ( user != null) {
-            mFirebaseDatabase = FirebaseDatabase.getInstance();
-            mDatabaseReference = mFirebaseDatabase.getReference().child("user_details");
             //Log.d(TAG, "************** deleted Guess : "+ mGuesses.getId() + "**************");
             mDatabaseReference.child(user.getmId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -85,5 +89,32 @@ public class SpecificUser extends AppCompatActivity {
             });
             //TODO: Move All the  database methods and variables  to the database util class
         }
+    }
+    public void updateRecord(){
+        Users oldUser = user;
+        
+        user.setmFirstName(txtFirstName.getText().toString());
+        user.setmLastName(txtLastName.getText().toString());
+        user.setmEmail(txtEmail.getText().toString());
+        user.setmPhoneNumber(txtPhone.getText().toString());
+        user.setmStateOfOrigin(txtOrigin.getText().toString());
+        if (oldUser == user){
+            Toast.makeText(this, "**************True*************", Toast.LENGTH_SHORT).show();
+        }
+        Log.d(TAG, "********** updateRecord: " + user.getmId());
+        mDatabaseReference.child(user.getmId()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(SpecificUser.this, "Updated This Stuff", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SpecificUser.this,UserActivity.class);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SpecificUser.this, "could not push updates", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "************ onFailure: "+ e.toString());
+        }
+    });
     }
 }

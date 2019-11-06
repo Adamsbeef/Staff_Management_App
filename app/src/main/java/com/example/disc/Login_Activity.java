@@ -327,8 +327,8 @@ public class Login_Activity extends AppCompatActivity {
         return newUsers;
 
     }
-
     public void writeTheUserToDb(Users newUsers) {
+
         mDatabase.child(getString(R.string.user_details)).push().setValue(newUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

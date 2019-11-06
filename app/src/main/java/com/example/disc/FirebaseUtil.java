@@ -31,7 +31,6 @@ final class FirebaseUtil {
     static boolean sentEmail = false;
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
     private FirebaseUtil(){}
     static  void createAccount(String email, final String password, final Context context, final Login_Activity activity){
         mAuth.createUserWithEmailAndPassword(email, password)

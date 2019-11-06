@@ -4,6 +4,6 @@
     <item android:title="Delete"
         android:id="@+id/delete_menu_item"/>
 
-    <item android:title="Edit"
-        android:id="@+id/edit_guess_menu_item"/>
+    <item android:title="Save"
+        android:id="@+id/save_new_value"/>
 </menu>
