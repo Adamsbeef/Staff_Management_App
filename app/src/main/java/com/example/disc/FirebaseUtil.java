@@ -33,7 +33,7 @@ final class FirebaseUtil {
 
 
     private FirebaseUtil(){}
-    static  void createAccount(String email, final String password, final Context context){
+    static  void createAccount(String email, final String password, final Context context, final Login_Activity activity){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -44,6 +44,8 @@ final class FirebaseUtil {
                             Toast.makeText(context, "Created Account Successfully", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user,context);
+                            activity.writeTheUserToDb(activity.getUser());
+                            activity.progressDialog.setMessage("Now Writing Details to Database...");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

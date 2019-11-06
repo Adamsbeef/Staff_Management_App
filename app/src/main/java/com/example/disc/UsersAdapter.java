@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,11 +26,11 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
     private static FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
+    final private ArrayList<Users> mArrayOfUsers = new ArrayList<>();
     private  Users users;
-    final static ArrayList<Users> mArrayOfUsers = new ArrayList<>();
     UsersAdapter(Context context){
         DatabaseReference ref = mFirebaseDatabase.getReference("user_details");
-        Query query  = ref.orderByChild("name");
+        Query query  = ref.orderByChild("mFirstName");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot){
@@ -66,6 +67,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     @Override
     public int getItemCount() {
+        Log.d(TAG, "getItemCount: " + mArrayOfUsers.size());
         return mArrayOfUsers.size();
     }
 
@@ -89,6 +91,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
         @Override
         public void onClick(View view) {
+            //Context context = view.getContext();
             int position = getAdapterPosition();
             Log.d(TAG, "onClick: "+ position);
             Users selectedGuesses  = mArrayOfUsers.get(position);
@@ -98,26 +101,4 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
         }
     }
-//    private void readDb(){
-//        DatabaseReference ref = mFirebaseDatabase.getReference("user_details");
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-//                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-//                for (DataSnapshot ds: children) {
-//                    users = ds.getValue(Users.class);
-//                    users.setmId(ds.getKey());
-//                    assert users != null;
-//                    Log.d(TAG, "onDataChange: "+ users.getmFirstName()+users.getmLastName());
-//                    mArrayOfUsers.add(users);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Log.w(TAG, "Failed to read value.", databaseError.toException());
-//            }
-//        });
-//
-//
-//    }
 }

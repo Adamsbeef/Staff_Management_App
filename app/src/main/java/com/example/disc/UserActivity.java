@@ -19,41 +19,32 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-
 
 
 public class UserActivity extends AppCompatActivity {
     private static final String TAG = "UserActivity";
     private GoogleSignInClient mGoogleSignInClient;
     ProgressDialog progressDialog;
-    final static ArrayList<Users> mArrayOfUsers = new ArrayList<>();
-    private static Users users;
-    private static FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
-    private TextView txtName,txtLastName,txtPhone,txtEmail,txtOrigin;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-//        txtName = findViewById(R.id.txt_first_name);
-//        txtLastName = findViewById(R.id.txt_last_name);
-//        txtEmail = findViewById(R.id.txt_email);
-//        txtPhone = findViewById(R.id.txt_phone);
-//        txtOrigin = findViewById(R.id.txt_origin);
         Log.d(TAG,"Started fine");
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initRecyclerView();
     }
 

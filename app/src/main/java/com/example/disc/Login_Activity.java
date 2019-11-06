@@ -68,6 +68,8 @@ public class Login_Activity extends AppCompatActivity {
             phoneNumberField, emailAddressField;
     private String mFirstName, mLastName, mEmailAddress,mPhoneNumber,mPassword,mConfirmedPassword,mStateOfOrigin;
     private Uri pictureUri;
+    public ProgressDialog progressDialog;
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -103,6 +105,8 @@ public class Login_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        progressDialog = new ProgressDialog(this);
+
         //>>>>>>>>>>>>>> Variable Initialization >>>>>>>>>>>>
         mAuth = FirebaseAuth.getInstance();
         mUserEmailField = findViewById(R.id.fieldEmail);
@@ -129,10 +133,20 @@ public class Login_Activity extends AppCompatActivity {
         alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                progressDialog.setTitle("Signing Up...");
+                progressDialog.setMessage("Creating Account...");
+                progressDialog.show();
                 alert.setView(view);
                 if (validForm(firstNameField, lastNameField, emailAddressField, phoneNumberField, passwordField, confirmPasswordField) && passwordsMatch()){
                     extractInputField();
-                    writeNewUserToDb();
+                    //writeNewUserToDb();
+                    if(getUser().getmId() == null) {
+                        FirebaseUtil.createAccount(mEmailAddress, mConfirmedPassword,Login_Activity.this,Login_Activity.this);
+                    }
+                    else {
+                        Toast.makeText(Login_Activity.this, "Not saved", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if (!passwordsMatch()){
                     GeneralUtility.clearView(view);
@@ -187,7 +201,7 @@ public class Login_Activity extends AppCompatActivity {
                     //remember to pass in a views context because this method is called in a non activity.
                     FirebaseUtil.signIn(userEmail,userPassword,v.getContext());
                 }
-                else {
+                else if  (!userEmail.matches(emailPattern)){
                     displaySnackBar("Please Enter a Valid Email Address",v);
                 }
             }
@@ -303,27 +317,25 @@ public class Login_Activity extends AppCompatActivity {
             updateUIGoogle(null);
         }
     }
-    private void writeNewUserToDb() {
+    public Users getUser() {
         Users newUsers = new Users();
         newUsers.setmFirstName(mFirstName);
         newUsers.setmLastName(mLastName);
         newUsers.setmPhoneNumber(mPhoneNumber);
         newUsers.setmEmail(mEmailAddress);
         newUsers.setmStateOfOrigin(mStateOfOrigin);
+        return newUsers;
 
-        if(newUsers.getmId() == null) {
-            mDatabase.child(getString(R.string.user_details)).push().setValue(newUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    FirebaseUtil.createAccount(mEmailAddress, mConfirmedPassword,Login_Activity.this);
-                    Toast.makeText(Login_Activity.this, "Account Creation Successful", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        else {
-            Toast.makeText(Login_Activity.this, "Not saved", Toast.LENGTH_SHORT).show();
-        }
+    }
 
+    public void writeTheUserToDb(Users newUsers) {
+        mDatabase.child(getString(R.string.user_details)).push().setValue(newUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(Login_Activity.this, "Created a profile for you", Toast.LENGTH_SHORT).show();
+                progressDialog.cancel();
+            }
+        });
     }
     private void chooseImage() {
         Intent getImages  = new Intent(Intent.ACTION_GET_CONTENT);
