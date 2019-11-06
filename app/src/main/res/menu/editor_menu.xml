@@ -6,4 +6,7 @@
 
     <item android:title="Save"
         android:id="@+id/save_new_value"/>
+
+    <item android:title="Add New"
+        android:id="@+id/add_new_staff"/>
 </menu>

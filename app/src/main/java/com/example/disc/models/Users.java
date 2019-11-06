@@ -1,4 +1,4 @@
-package com.example.disc;
+package com.example.disc.models;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.example.disc;
+package com.example.disc.Utility;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-class GeneralUtility {
-    static void displaySnackBar(String message, View view) {
+public class GeneralUtility {
+    public static void displaySnackBar(String message, View view) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
-    static String getFormattedString(TextView view, Boolean capitalize) {
+    public static String getFormattedString(TextView view, Boolean capitalize) {
         String formattedString;
         if (capitalize) {
             formattedString = capitalise(view.getText().toString().trim());
@@ -26,7 +26,7 @@ class GeneralUtility {
         }
     }
 
-    static boolean validForm(TextView... views) {
+    public static boolean validForm(TextView... views) {
         boolean valid = false;
         TextView holderTextView;
         for (TextView view : views) {
@@ -44,7 +44,7 @@ class GeneralUtility {
         return valid;
     }
 
-    static void clearView(View view) {
+    public static void clearView(View view) {
         if (view.getParent() != null) {
             ((ViewGroup) view.getParent()).removeAllViews();
         }

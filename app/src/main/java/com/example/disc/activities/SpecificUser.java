@@ -1,16 +1,22 @@
-package com.example.disc;
+package com.example.disc.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.disc.R;
+import com.example.disc.models.Users;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -67,6 +73,8 @@ public class SpecificUser extends AppCompatActivity {
                 return true;
             case R.id.save_new_value:
                 updateRecord();
+            case R.id.add_new_staff:
+                createNewStaff();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -116,5 +124,11 @@ public class SpecificUser extends AppCompatActivity {
                 Log.d(TAG, "************ onFailure: "+ e.toString());
         }
     });
+    }
+    public void createNewStaff(){
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View view = inflater.inflate(R.layout.register,null);
+        alert.setView(view);
     }
 }

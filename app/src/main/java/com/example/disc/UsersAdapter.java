@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.disc.activities.SpecificUser;
+import com.example.disc.models.Users;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +29,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     private static FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
     final private ArrayList<Users> mArrayOfUsers = new ArrayList<>();
     private  Users users;
-    UsersAdapter(Context context){
+    public UsersAdapter(Context context){
         DatabaseReference ref = mFirebaseDatabase.getReference("user_details");
         Query query  = ref.orderByChild("mFirstName");
         query.addValueEventListener(new ValueEventListener() {
@@ -95,7 +96,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             int position = getAdapterPosition();
             Log.d(TAG, "onClick: "+ position);
             Users selectedGuesses  = mArrayOfUsers.get(position);
-            Intent intent = new Intent(view.getContext(),SpecificUser.class);
+            Intent intent = new Intent(view.getContext(), SpecificUser.class);
             intent.putExtra("users",selectedGuesses);
             view.getContext().startActivity(intent);
 

@@ -1,6 +1,5 @@
-package com.example.disc;
+package com.example.disc.activities;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -23,29 +20,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cloudinary.android.MediaManager;
-import com.cloudinary.android.callback.ErrorInfo;
-import com.cloudinary.android.callback.UploadCallback;
+import com.example.disc.R;
+import com.example.disc.Utility.FirebaseUtil;
+import com.example.disc.Utility.GeneralUtility;
+import com.example.disc.models.Users;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static com.example.disc.FirebaseUtil.mDatabase;
-import static com.example.disc.GeneralUtility.displaySnackBar;
-import static com.example.disc.GeneralUtility.getFormattedString;
-import static com.example.disc.GeneralUtility.validForm;
+import static com.example.disc.Utility.GeneralUtility.displaySnackBar;
+import static com.example.disc.Utility.GeneralUtility.getFormattedString;
+import static com.example.disc.Utility.GeneralUtility.validForm;
 import static com.example.disc.R.string.*;
 
 public class Login_Activity extends AppCompatActivity {
@@ -326,16 +319,6 @@ public class Login_Activity extends AppCompatActivity {
         newUsers.setmStateOfOrigin(mStateOfOrigin);
         return newUsers;
 
-    }
-    public void writeTheUserToDb(Users newUsers) {
-
-        mDatabase.child(getString(R.string.user_details)).push().setValue(newUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(Login_Activity.this, "Created a profile for you", Toast.LENGTH_SHORT).show();
-                progressDialog.cancel();
-            }
-        });
     }
     private void chooseImage() {
         Intent getImages  = new Intent(Intent.ACTION_GET_CONTENT);
