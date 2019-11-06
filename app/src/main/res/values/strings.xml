@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">DISC</string>
+    <string name="empty_fields">Empty Fields</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="user_details">user_details</string>
+</resources>

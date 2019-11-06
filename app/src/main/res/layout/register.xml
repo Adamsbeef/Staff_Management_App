@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/LinearRP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blueColorForIcons"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/gotham"
+            android:text="Create account"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="408dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearRP"
+        app:layout_constraintVertical_bias="0.0">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="122dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="122dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"
+            android:src="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/createFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="First Name"
+            android:textSize="@dimen/Admin_textSize"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/createLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Last Name"
+            android:textSize="@dimen/Admin_textSize"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/txtCreatePhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Phone Number"
+            android:textSize="@dimen/Admin_textSize"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/txtCreateEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Email address"
+            android:textSize="@dimen/Admin_textSize"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/txtCreatePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Password"
+            android:textSize="@dimen/Admin_textSize"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/txtConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Confirm Password"
+            android:textSize="@dimen/Admin_textSize"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/state_of_origin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="State of Origin"
+            android:textSize="@dimen/Admin_textSize"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
