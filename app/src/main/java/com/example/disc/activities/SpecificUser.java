@@ -24,8 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SpecificUser extends AppCompatActivity {
     private static final String TAG = "SpecificUser Activity";
-    private TextView txtFirstName,txtPhone,txtEmail,txtOrigin,txtLastName;
-    private String mFirstName,mPhone,mEmail,mOrigin,mLastName;
+    private TextView txtFirstName,txtPhone,txtEmail,txtOrigin, txtDOB;
+    private String mFullName,mPhone,mEmail,mOrigin, mDob;
     private Users user;
     public static DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
@@ -42,20 +42,20 @@ public class SpecificUser extends AppCompatActivity {
         Intent intent = getIntent();
 
         txtFirstName = findViewById(R.id.txt_name);
-        txtLastName = findViewById(R.id.txt_last_name);
+        txtDOB = findViewById(R.id.txt_date_of_birth);
         txtPhone = findViewById(R.id.txt_phone);
         txtEmail = findViewById(R.id.txt_email);
         txtOrigin = findViewById(R.id.txt_state);
 
         user = (Users) intent.getSerializableExtra("users");
-        mFirstName = user.getmFirstName();
-        mLastName = user.getmLastName();
+        mFullName = user.getmFullName();
+        mDob = user.getmDOB();
         mPhone = user.getmPhoneNumber();
         mEmail = user.getmEmail();
         mOrigin = user.getmStateOfOrigin();
 
-        txtFirstName.setText(mFirstName);
-        txtLastName.setText(user.getmLastName());
+        txtFirstName.setText(mFullName);
+        txtDOB.setText(user.getmDOB());
         txtPhone.setText(mPhone);
         txtOrigin.setText(mOrigin);
         txtEmail.setText(mEmail);
@@ -73,8 +73,10 @@ public class SpecificUser extends AppCompatActivity {
                 return true;
             case R.id.save_new_value:
                 updateRecord();
+                return true;
             case R.id.add_new_staff:
                 createNewStaff();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -101,8 +103,8 @@ public class SpecificUser extends AppCompatActivity {
     public void updateRecord(){
         Users oldUser = user;
         
-        user.setmFirstName(txtFirstName.getText().toString());
-        user.setmLastName(txtLastName.getText().toString());
+        user.setmFullName(txtFirstName.getText().toString());
+        user.setmDOB(txtDOB.getText().toString());
         user.setmEmail(txtEmail.getText().toString());
         user.setmPhoneNumber(txtPhone.getText().toString());
         user.setmStateOfOrigin(txtOrigin.getText().toString());

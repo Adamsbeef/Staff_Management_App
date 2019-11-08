@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Users implements Serializable {
     private String mId;
-    private String mFirstName;
-    private String mLastName;
+    private String mFullName;
+    private String mDOB;
     private String mPhoneNumber;
     private String mEmail;
     private String mStateOfOrigin;
@@ -15,8 +15,8 @@ public class Users implements Serializable {
 
     public Users(String id, String firstName, String lastName, String phoneNumber, String email,String stateOfOrigin) {
         this.mId = id;
-        this.mFirstName = firstName;
-        this.mLastName = lastName;
+        this.mFullName = firstName;
+        this.mDOB = lastName;
         this.mPhoneNumber = phoneNumber;
         this.mEmail = email;
         this.mStateOfOrigin = stateOfOrigin;
@@ -30,20 +30,20 @@ public class Users implements Serializable {
         this.mId = mId;
     }
 
-    public String getmFirstName() {
-        return mFirstName;
+    public String getmFullName() {
+        return mFullName;
     }
 
-    public void setmFirstName(String mFirstName) {
-        this.mFirstName = mFirstName;
+    public void setmFullName(String mFullName) {
+        this.mFullName = mFullName;
     }
 
-    public String getmLastName() {
-        return mLastName;
+    public String getmDOB() {
+        return mDOB;
     }
 
-    public void setmLastName(String mLastName) {
-        this.mLastName = mLastName;
+    public void setmDOB(String mDOB) {
+        this.mDOB = mDOB;
     }
 
     public String getmPhoneNumber() {

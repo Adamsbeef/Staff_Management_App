@@ -31,7 +31,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     private  Users users;
     public UsersAdapter(Context context){
         DatabaseReference ref = mFirebaseDatabase.getReference("user_details");
-        Query query  = ref.orderByChild("mFirstName");
+        Query query  = ref.orderByChild("mFullName");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot){
@@ -40,7 +40,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
                     users = ds.getValue(Users.class);
                     users.setmId(ds.getKey());
                     assert users != null;
-                    Log.d(TAG, "onDataChange: "+ users.getmFirstName()+users.getmLastName());
+                    Log.d(TAG, "onDataChange: "+ users.getmFullName()+users.getmDOB());
                     mArrayOfUsers.add(users);
                 }
                 notifyItemInserted(mArrayOfUsers.size()-1);
@@ -84,7 +84,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             itemView.setOnClickListener(this); }
 
         public void bind(Users user, UserViewHolder holder) {
-            String name = user.getmFirstName() + " " + user.getmLastName();
+            String name = user.getmFullName();
             userName.setText(name);
             userEmail.setText(user.getmEmail());
             Log.d("Bind Method","********************On Bind Method Started***************************");

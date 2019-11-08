@@ -46,35 +46,35 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="148dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center"
             android:layout_marginStart="122dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="122dp"
             android:layout_marginBottom="8dp"
-            android:layout_gravity="center"
             android:src="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/createFirstName"
+            android:id="@+id/createFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gotham"
-            android:hint="First Name"
+            android:hint="Full Name"
             android:textSize="@dimen/Admin_textSize"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/createLastName"
+            android:id="@+id/txtDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gotham"
-            android:hint="Last Name"
+            android:hint="Date"
             android:textSize="@dimen/Admin_textSize"
-            android:inputType="textPersonName" />
+            android:inputType="date" />
 
         <EditText
             android:id="@+id/txtCreatePhoneNumber"

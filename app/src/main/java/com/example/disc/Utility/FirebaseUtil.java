@@ -16,6 +16,7 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,30 +30,36 @@ public final class FirebaseUtil {
 
     public FirebaseUtil(){}
     public static  void createAccount(String email, final String password, final Context context, final Login_Activity activity){
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(context, "Created Account Successfully", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user,context);
-                            writeTheUserToDb(activity.getUser(),activity);
-                            activity.progressDialog.setMessage("Now Writing Details to Database...");
-                            verifyUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(context, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null,context);
-                        }
+        try {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                Toast.makeText(context, "Created Account Successfully", Toast.LENGTH_SHORT).show();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                updateUI(user,context);
+                                writeTheUserToDb(activity.getUser(),activity);
+                                activity.progressDialog.setMessage("Now Writing Details to Database...");
+                                verifyUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(context, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                updateUI(null,context);
+                            }
 
-                        // ...
-                    }
-                });
+                            // ...
+                        }
+                    });
+        } catch (Exception e) {
+            Toast.makeText(context, "This Email Prolly Already Exists", Toast.LENGTH_SHORT).show();
+            activity.progressDialog.cancel();
+        }
+
 
     }
     public static void signIn(final String email, final String password, final Context context){
@@ -140,7 +147,6 @@ public final class FirebaseUtil {
                 });
     }
     public static void writeTheUserToDb(Users newUsers, final Login_Activity activity) {
-
         mDatabase.child("user_details").push().setValue(newUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

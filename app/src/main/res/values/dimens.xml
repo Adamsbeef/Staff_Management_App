@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="Admin_textSize">20sp</dimen>
+    <dimen name="Admin_textSize">15sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="button_margin">12dp</dimen>
     <dimen name="drawable_padding">16dp</dimen>
