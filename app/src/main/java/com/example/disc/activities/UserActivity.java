@@ -1,16 +1,26 @@
 package com.example.disc.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.disc.R;
@@ -26,7 +36,6 @@ import com.google.android.gms.tasks.Task;
 public class UserActivity extends AppCompatActivity {
     private static final String TAG = "UserActivity";
     private GoogleSignInClient mGoogleSignInClient;
-    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +46,6 @@ public class UserActivity extends AppCompatActivity {
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
     }
 
     @Override
@@ -51,6 +59,8 @@ public class UserActivity extends AppCompatActivity {
         inflater.inflate(R.menu.signout, menu);
         return true;
     }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.sign_out_menu_item:
@@ -61,9 +71,15 @@ public class UserActivity extends AppCompatActivity {
                         Toast.makeText(UserActivity.this, "SignedOut Successfully", Toast.LENGTH_LONG).show();
                     }
                 });
-                Intent  mainActivityIntent = new Intent(this,Login_Activity.class);
-                startActivity(mainActivityIntent);
+                Intent  loginActivity = new Intent(this,Login_Activity.class);
+                startActivity(loginActivity);
                 return true;
+
+            case R.id.create_user:
+                Intent intent = new Intent(this, AddUser.class);
+                startActivity(intent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -80,4 +96,6 @@ public class UserActivity extends AppCompatActivity {
         Log.d(TAG,"****************************  initRecyclerView ended ********************************");
 
     }
+
+
 }

@@ -98,7 +98,7 @@ public class Login_Activity extends AppCompatActivity {
             handleSignInResult(task);
         }
 
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK
+        if(requestCode == GeneralUtility.REQUEST_CODE && resultCode == RESULT_OK
                 && data != null && data.getData() != null )
         {
             FilePathStr = null;
@@ -150,7 +150,7 @@ public class Login_Activity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chooseImage();
+                GeneralUtility.chooseImage(Login_Activity.this);
             }
         });
 
@@ -162,29 +162,7 @@ public class Login_Activity extends AppCompatActivity {
                 progressDialog.setMessage("Creating Account...");
                 progressDialog.show();
                 alert.setView(view);
-                if (validForm(firstNameField, lastNameField, emailAddressField, phoneNumberField, passwordField, confirmPasswordField) && passwordsMatch()){
-                    extractInputField();
-                    if(getUser().getmId() == null && pictureUri!= null) {
-                        FirebaseUtil.createAccount(mEmailAddress, mConfirmedPassword,Login_Activity.this,Login_Activity.this);
-                        uploadImage(FilePathStr);
-                    }
-                    else {
-                        Toast.makeText(Login_Activity.this, "Not saved", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else if (!passwordsMatch()){
-                    GeneralUtility.clearView(view);
-                    alert.show();
-                    passwordField.setError("Passwords do not Match");
-                    confirmPasswordField.setError("Passwords do not Match");
-                    Toast.makeText(Login_Activity.this, "Passwords Do not Match", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    GeneralUtility.clearView(view);
-                    alert.show();
-                    Toast.makeText(Login_Activity.this, empty_fields, Toast.LENGTH_SHORT).show();
-
-                }
+                createUser(view, alert);
             }
         });
 
@@ -202,7 +180,6 @@ public class Login_Activity extends AppCompatActivity {
         passwordField = view.findViewById(R.id.txtCreatePassword);
         confirmPasswordField = view.findViewById(R.id.txtConfirmPassword);
         stateOfOriginField = view.findViewById(R.id.state_of_origin);
-
 
 
         mCreateAccount.setOnClickListener(new View.OnClickListener() {
@@ -254,6 +231,32 @@ public class Login_Activity extends AppCompatActivity {
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    private void createUser(View view, AlertDialog.Builder alert) {
+        if (validForm(firstNameField, lastNameField, emailAddressField, phoneNumberField, passwordField, confirmPasswordField) && passwordsMatch()){
+            extractInputField();
+            if(getUser().getmId() == null && pictureUri!= null) {
+                FirebaseUtil.createAccount(mEmailAddress, mConfirmedPassword, Login_Activity.this,Login_Activity.this);
+                uploadImage(FilePathStr);
+            }
+            else {
+                Toast.makeText(Login_Activity.this, "Not saved", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (!passwordsMatch()){
+            GeneralUtility.clearView(view);
+            alert.show();
+            passwordField.setError("Passwords do not Match");
+            confirmPasswordField.setError("Passwords do not Match");
+            Toast.makeText(Login_Activity.this, "Passwords Do not Match", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            GeneralUtility.clearView(view);
+            alert.show();
+            Toast.makeText(Login_Activity.this, empty_fields, Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     @Override
@@ -366,14 +369,9 @@ public class Login_Activity extends AppCompatActivity {
         newUsers.setmPhoneNumber(mPhoneNumber);
         newUsers.setmEmail(mEmailAddress);
         newUsers.setmStateOfOrigin(mStateOfOrigin);
+        newUsers.setmPictureUri(pictureUri.toString());
         return newUsers;
 
-    }
-    private void chooseImage() {
-        Intent getImages  = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        getImages.setType("image/*");
-//        getImages.putExtra(Intent.EXTRA_LOCAL_ONLY,true);
-        startActivityForResult(getImages, REQUEST_CODE);
     }
     private  void uploadImage(String filePathStr){
         checkAndRequestPermissionsThenUpload(filePathStr);
@@ -432,7 +430,6 @@ public class Login_Activity extends AppCompatActivity {
                             Log.d(TAG, "onResponse:  something went wrong");
                             Toast.makeText(Login_Activity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                          default:
-
 
 
                     }

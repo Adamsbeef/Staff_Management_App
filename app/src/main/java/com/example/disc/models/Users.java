@@ -1,5 +1,7 @@
 package com.example.disc.models;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 
 public class Users implements Serializable {
@@ -9,17 +11,19 @@ public class Users implements Serializable {
     private String mPhoneNumber;
     private String mEmail;
     private String mStateOfOrigin;
+    private String mPictureUri;
 
     public Users() {
     }
 
-    public Users(String id, String firstName, String lastName, String phoneNumber, String email,String stateOfOrigin) {
+    public Users(String id, String firstName, String lastName, String phoneNumber, String email,String stateOfOrigin,String pictureUri) {
         this.mId = id;
         this.mFullName = firstName;
         this.mDOB = lastName;
         this.mPhoneNumber = phoneNumber;
         this.mEmail = email;
         this.mStateOfOrigin = stateOfOrigin;
+        this.mPictureUri = pictureUri;
     }
 
     public String getmId() {
@@ -68,5 +72,13 @@ public class Users implements Serializable {
 
     public void setmStateOfOrigin(String mStateOfOrigin) {
         this.mStateOfOrigin = mStateOfOrigin;
+    }
+
+    public String getmPictureUri() {
+        return mPictureUri;
+    }
+
+    public void setmPictureUri(String mPictureUri) {
+        this.mPictureUri = mPictureUri;
     }
 }

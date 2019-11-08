@@ -9,104 +9,87 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
-        android:layout_width="106dp"
-        android:layout_height="109dp"
+        android:layout_width="160dp"
+        android:layout_height="152dp"
         android:layout_gravity="center"
         android:layout_marginStart="144dp"
         android:layout_marginLeft="144dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="152dp"
         android:layout_marginRight="152dp"
-        android:layout_marginBottom="52dp"
         android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toTopOf="@+id/txt_date_of_birth"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintHorizontal_bias="0.422"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/txt_name"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:fontFamily="@font/gotham"
-        android:hint="Date Of Birth"
-        android:inputType="textPersonName"
-        android:textSize="@dimen/Admin_textSize"
-        app:layout_constraintBottom_toTopOf="@+id/txt_date_of_birth"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.462">
 
-    <EditText
-        android:id="@+id/txt_date_of_birth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/gotham"
-        android:hint="First Name"
-        android:inputType="textPersonName"
-        android:textSize="@dimen/Admin_textSize"
-        app:layout_constraintBottom_toTopOf="@+id/txt_phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+        <EditText
+            android:id="@+id/txt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/Admin_textSize" />
 
-    <EditText
-        android:id="@+id/txt_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/gotham"
-        android:hint="phone"
-        android:inputType="textPersonName"
-        android:textSize="@dimen/Admin_textSize"
-        app:layout_constraintBottom_toTopOf="@+id/txt_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txt_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+        <EditText
+            android:id="@+id/txt_date_of_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Date OF Birth"
+            android:inputType="date"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/Admin_textSize" />
 
-    <EditText
-        android:id="@+id/txt_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/gotham"
-        android:hint="Email"
-        android:inputType="textPersonName"
-        android:textSize="@dimen/Admin_textSize"
-        app:layout_constraintBottom_toTopOf="@+id/txt_state"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txt_phone"
-        app:layout_constraintTop_toBottomOf="@+id/txt_phone" />
+        <EditText
+            android:id="@+id/txt_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="phone"
+            android:inputType="phone"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/Admin_textSize" />
 
-    <EditText
-        android:id="@+id/txt_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:fontFamily="@font/gotham"
-        android:hint="State Of Origin"
-        android:inputType="textPersonName"
-        android:textSize="@dimen/Admin_textSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txt_email"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
+        <EditText
+            android:id="@+id/txt_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/Admin_textSize" />
+
+        <EditText
+            android:id="@+id/txt_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham"
+            android:hint="State Of Origin"
+            android:inputType="textPersonName"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/Admin_textSize" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

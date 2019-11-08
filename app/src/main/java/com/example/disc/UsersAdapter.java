@@ -2,10 +2,12 @@ package com.example.disc;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -76,17 +78,21 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
         TextView userName;
         TextView userEmail;
+        ImageView userImage;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.name_field);
             userEmail = itemView.findViewById(R.id.email_field);
+            userImage = itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this); }
 
         public void bind(Users user, UserViewHolder holder) {
             String name = user.getmFullName();
+
             userName.setText(name);
             userEmail.setText(user.getmEmail());
+            userImage.setImageURI(Uri.parse(user.getmPictureUri()));
             Log.d("Bind Method","********************On Bind Method Started***************************");
         }
 

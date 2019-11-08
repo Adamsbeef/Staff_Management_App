@@ -1,4 +1,5 @@
 package com.example.disc.Utility;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -146,6 +147,11 @@ public final class FirebaseUtil {
                     }
                 });
     }
+
+//    public static void writeTheUserToDb(Users newUsers) {
+//        writeTheUserToDb(newUsers);
+//    }
+
     public static void writeTheUserToDb(Users newUsers, final Login_Activity activity) {
         mDatabase.child("user_details").push().setValue(newUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -154,6 +160,15 @@ public final class FirebaseUtil {
                 activity.progressDialog.cancel();
             }
         });
+
     }
 
+    public static void overloadWriteUserToDb(Users newUser, final Context context){
+        mDatabase.child("user_details").push().setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(context, "User Created", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

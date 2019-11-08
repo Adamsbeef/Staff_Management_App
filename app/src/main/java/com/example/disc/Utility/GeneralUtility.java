@@ -1,5 +1,9 @@
 package com.example.disc.Utility;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +13,8 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class GeneralUtility {
+    public static final int REQUEST_CODE = 45;
+
     public static void displaySnackBar(String message, View view) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
@@ -54,5 +60,13 @@ public class GeneralUtility {
         String upperString = word.substring(0, 1).toUpperCase() + word.substring(1);
         return upperString;
     }
+
+    public static void chooseImage(Activity activity) {
+        Intent getImages  = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        getImages.setType("image/*");
+//        getImages.putExtra(Intent.EXTRA_LOCAL_ONLY,true);
+        activity.startActivityForResult(getImages, REQUEST_CODE);
+    }
+
 }
 
